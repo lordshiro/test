@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .mainBox {
+            width: 100%;
+            display: inline-flex;
+            height: 100vh;
+        }
+
+        .mainBox .col1 {
+            width: 200px;
+        }
+
+        .mainBox .col2 {
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            width: calc(100% - 500px);
+            min-width: 100px;
+
+        }
+
+        .mainBox .col3 {
+            width: 300px;
+        }
+
+        @media(max-width: 600px) {
+            .mainBox {
+                overflow: scroll;
+                width: unset;
+                height: unset;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="mainBox">
+        <div class="col1">
+            <input id="firstCol" type="number" onblur="myFunction('firstCol')">
+        </div>
+        <div class="col2">
+            <select name="secondCol" id="secondCol" onchange="myFunction('secondCol')">
+                <option value="isPrime">isPrime</option>
+                <option value="isFibonacci">isFibonacci</option>
+            </select>
+        </div>
+        <div class="col3" id="thirdCol"></div>
+    </div>
+</body>
+
+<script>
+    function myFunction() {
+        var id = document.getElementById("firstCol");
+        const idSec = document.getElementById("secondCol");
+        const idThird = document.getElementById("thirdCol");
+        const num = id.value;
+        const isSec = idSec.value;
+
+        const val = num <= -1 ? 1 : num === -0 ? 0 : num
+        id.value = parseInt(val)
+
+        if (isSec === 'isPrime') {
+            const valPrime = isPrime(num)
+            idThird.textContent = valPrime
+        } else {
+            const valFibonacci = isFibonacci(num)
+            idThird.textContent = valFibonacci
+        }
+    }
+
+    function isPrime(num) {
+        for (var i = 2; i < num; i++)
+            if (num % i === 0) return false;
+        return num > 1;
+    }
+
+    function isFibonacci(num) {
+        var fib,
+            a = (5 * Math.pow(num, 2) + 4),
+            b = (5 * Math.pow(num, 2) - 4)
+
+        var result = Math.sqrt(a) % 1 == 0,
+            res = Math.sqrt(b) % 1 == 0;
+
+        if (result || res == true) return true;
+        return false;
+
+    }
+
+</script>
+</html>
